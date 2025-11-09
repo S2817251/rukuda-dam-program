@@ -98,8 +98,6 @@
   }
   .modal-content img{max-width:80vw;max-height:70vh;border-radius:12px;}
   .footer{
-    margin-top:12px;
-    text-align:center;
     font-size:13px;
     color:var(--muted);
   }
@@ -137,29 +135,34 @@
 <div class="card" style="text-align:center;">
   <div class="pill">Per Person ₹500</div>
   <div style="margin-top:12px;">
-   <img src="qr.png" 
-         style="border-radius:12px;max-width:220px;width:100%;height:auto;" alt="QR">
-
+   <img src="qr.png" style="border-radius:12px;max-width:220px;width:100%;height:auto;" alt="QR">
   </div>
   <div style="margin-top:12px;">
     <a class="btn" id="payBtn" href="#">Pay & Send Screenshot</a>
   </div>
-  <div class="small" style="margin-top:10px;">1 Members Paid • Total Collection ₹500</div>
+  <div class="small" style="margin-top:10px;">Paid Members:1 • Total Collection: ₹500</div>
 </div>
 
 <!-- Members Card -->
 <div class="card">
   <div class="small">Paid Members:</div>
+
   <div class="attendee" onclick="openImg('LINGARAJ MAHANTA','lingaraj.png')">
     <img src="lingaraj.png" alt="">
     <strong>LINGARAJ MAHANTA</strong>
   </div>
+  </div>
 
-<!-- Footer -->
-<div class="footer">
-  <div><strong>Made by Sachin</strong> | Creator of this page</div>
-  <div class="socials">
-    <a href="https://www.instagram.com/sachin_11_13" target="_blank">Instagram</a>
+<!-- Footer Card -->
+<div class="card footer-card" style="display:flex;align-items:center;gap:10px;justify-content:center;">
+  <div class="logo" style="width:42px;height:42px;border-radius:10px;overflow:hidden;">
+    <img src="sachin.png" alt="Logo">
+  </div>
+  <div class="footer" style="text-align:left;">
+    <div><strong>Made by Sachin</strong> | Creator of this page</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/sachin_11_13" target="_blank">Instagram</a>
+    </div>
   </div>
 </div>
 
