@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RUKUDA DAM PICNIC PROGRAM</title>
+<style>
+  :root{
+    --bg:#071226;
+    --card:#0f1724;
+    --muted:#94a3b8;
+    --accent:#ffd166;
+    --accent2:#ffb86b;
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  }
+  body{
+    margin:0;
+    background:linear-gradient(180deg,#061226,#081a2e);
+    color:#e6eef8;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+    min-height:100vh;
+  }
+  .card{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,0.03);
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    margin-bottom:18px;
+  }
+  header{display:flex;align-items:center;gap:12px;}
+  .logo{
+    width:56px;height:56px;border-radius:12px;overflow:hidden;
+    flex:0 0 56px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;
+  }
+  .logo img{width:100%;height:100%;object-fit:cover;display:block;}
+  h1{font-size:18px;margin:0;}
+  .subtitle{font-size:13px;color:var(--muted);margin-top:4px;}
+  .btn{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#000;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:700;
+    border:0;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .link-btn{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.1);
+    padding:8px 10px;
+    border-radius:10px;
+    color:var(--muted);
+    font-weight:700;
+    text-decoration:none;
+  }
+  .small{font-size:13px;color:var(--muted);}
+  .pill{
+    background:rgba(255,255,255,0.06);
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:13px;
+    display:inline-block;
+  }
+  .attendee{
+    background:rgba(255,255,255,0.03);
+    padding:10px;
+    border-radius:10px;
+    margin-top:8px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .attendee img{width:48px;height:48px;object-fit:cover;border-radius:8px;}
+  .modal{
+    position:fixed;inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.7);
+    z-index:1000;
+  }
+  .modal.show{display:flex;}
+  .modal-content{
+    background:#0a152c;
+    padding:14px;
+    border-radius:14px;
+    max-width:90%;
+    text-align:center;
+  }
+  .modal-content img{max-width:80vw;max-height:70vh;border-radius:12px;}
+  .footer{
+    margin-top:12px;
+    text-align:center;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .footer .socials a{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    margin:0 6px;
+  }
+  @media(max-width:420px){
+    .footer{font-size:12px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header Card -->
+<div class="card">
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <div>
+      <h1>RUKUDA DAM PICNIC PROGRAM</h1>
+      <div class="subtitle">23 November 2025</div>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <a class="link-btn" href="https://wa.me/8018657290" target="_blank">Admin</a>
+        <a class="link-btn" href="https://chat.whatsapp.com/E9xF9pPuLGH5tWXUzzP26U?mode=wwt" target="_blank">WhatsApp Group</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Payment Card -->
+<div class="card" style="text-align:center;">
+  <div class="pill">Per Person ₹500</div>
+  <div style="margin-top:12px;">
+   <img src="qr.png" 
+         style="border-radius:12px;max-width:220px;width:100%;height:auto;" alt="QR">
+
+  </div>
+  <div style="margin-top:12px;">
+    <a class="btn" id="payBtn" href="#">Pay & Send Screenshot</a>
+  </div>
+  <div class="small" style="margin-top:10px;">1 Members Paid • Total Collection ₹500</div>
+</div>
+
+<!-- Members Card -->
+<div class="card">
+  <div class="small">Paid Members:</div>
+  <div class="attendee" onclick="openImg('LINGARAJ MAHANTA','lingaraj.png')">
+    <img src="lingaraj.png" alt="">
+    <strong>LINGARAJ MAHANTA</strong>
+  </div>
+
+<!-- Footer -->
+<div class="footer">
+  <div><strong>Made by Sachin</strong> | Creator of this page</div>
+  <div class="socials">
+    <a href="https://www.instagram.com/sachin_11_13" target="_blank">Instagram</a>
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="modal" id="imgModal">
+  <div class="modal-content">
+    <h3 id="modalName"></h3>
+    <img id="modalImg" src="" alt="">
+    <div style="margin-top:12px;">
+      <button class="btn" onclick="closeImg()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const num = '8018657290';
+  const msg = encodeURIComponent("Hi, I have paid ₹500 for RUKUDA DAM PICNIC PROGRAM. Sending screenshot.");
+  document.getElementById('payBtn').onclick = e=>{
+    e.preventDefault();
+    window.open(`https://wa.me/${num}?text=${msg}`,'_blank');
+  };
+
+  function openImg(name,src){
+    document.getElementById('modalName').innerText=name;
+    document.getElementById('modalImg').src=src;
+    document.getElementById('imgModal').classList.add('show');
+  }
+  function closeImg(){
+    document.getElementById('imgModal').classList.remove('show');
+  }
+  document.getElementById('imgModal').addEventListener('click',e=>{
+    if(e.target.id==='imgModal') closeImg();
+  });
+</script>
+
+</body>
+</html>
