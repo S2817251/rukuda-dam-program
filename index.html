@@ -38,6 +38,7 @@
     flex:0 0 56px;
     background:linear-gradient(135deg,var(--accent),var(--accent2));
     display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;
+    cursor:pointer;
   }
   .logo img{width:100%;height:100%;object-fit:cover;display:block;}
   h1{font-size:18px;margin:0;}
@@ -51,6 +52,7 @@
     border:0;
     text-decoration:none;
     display:inline-block;
+    cursor:pointer;
   }
   .link-btn{
     background:transparent;
@@ -97,18 +99,88 @@
     text-align:center;
   }
   .modal-content img{max-width:80vw;max-height:70vh;border-radius:12px;}
-  .footer{
-    font-size:13px;
-    color:var(--muted);
+  footer{
+    width:100%;
+    background:#0a1326;
+    border-top:1px solid rgba(255,255,255,0.08);
+    margin-top:auto;
+    padding:16px 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:fixed;
+    bottom:0;
+    left:0;
   }
-  .footer .socials a{
-    color:var(--accent);
-    font-weight:700;
+  footer div.wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    max-width:420px;
+    width:90%;
+  }
+  footer img{
+    width:40px;height:40px;border-radius:8px;object-fit:cover;
+  }
+  footer .text{
+    flex:1;
+  }
+  footer .text strong{
+    font-weight:600;font-size:14px;color:#e6eef8;
+  }
+  footer .text small{
+    display:block;font-size:12px;color:#94a3b8;
+  }
+  footer a{
+    color:#ffd166;
     text-decoration:none;
-    margin:0 6px;
+    font-size:13px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:5px;
   }
-  @media(max-width:420px){
-    .footer{font-size:12px;}
+  footer a img{
+    width:16px;
+    height:16px;
+    object-fit:contain;
+    filter:brightness(1.2);
+  }
+
+  /* Payment Box */
+  .payment-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .qr-container{
+    position:relative;
+    width:220px;
+    margin-top:12px;
+  }
+  .qr-container img{
+    width:100%;
+    height:auto;
+    border-radius:12px;
+    display:block;
+  }
+  .download-top{
+    text-align:center;
+    width:100%;
+  }
+  .download-top button{
+    font-size:12px;
+    padding:7px 12px;
+    border-radius:8px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#000;
+    border:none;
+    font-weight:700;
+    cursor:pointer;
+    margin-bottom:6px;
   }
 </style>
 </head>
@@ -117,7 +189,7 @@
 <!-- Header Card -->
 <div class="card">
   <header>
-    <div class="logo">
+    <div class="logo" onclick="openImg('Event Logo','logo.png')">
       <img src="logo.png" alt="Logo">
     </div>
     <div>
@@ -132,37 +204,29 @@
 </div>
 
 <!-- Payment Card -->
-<div class="card" style="text-align:center;">
+<div class="card payment-box">
   <div class="pill">Per Person ₹500</div>
-  <div style="margin-top:12px;">
-   <img src="qr.png" style="border-radius:12px;max-width:220px;width:100%;height:auto;" alt="QR">
+  
+  <div class="download-top">
+    <button onclick="downloadQR()">⬇ Download QR Code</button>
   </div>
-  <div style="margin-top:12px;">
+
+  <div class="qr-container">
+    <img id="qrImage" src="qr.png" alt="QR Code">
+  </div>
+  
+  <div style="margin-top:16px;">
     <a class="btn" id="payBtn" href="#">Pay & Send Screenshot</a>
   </div>
-  <div class="small" style="margin-top:10px;">Paid Members:1 • Total Collection: ₹500</div>
+  <div class="small" style="margin-top:12px;">Paid Members: 1 • Total Collection: ₹500</div>
 </div>
 
 <!-- Members Card -->
 <div class="card">
   <div class="small">Paid Members:</div>
-
   <div class="attendee" onclick="openImg('LINGARAJ MAHANTA','lingaraj.png')">
     <img src="lingaraj.png" alt="">
     <strong>LINGARAJ MAHANTA</strong>
-  </div>
-  </div>
-
-<!-- Footer Card -->
-<div class="card footer-card" style="display:flex;align-items:center;gap:10px;justify-content:center;">
-  <div class="logo" style="width:42px;height:42px;border-radius:10px;overflow:hidden;">
-    <img src="sachin.png" alt="Logo">
-  </div>
-  <div class="footer" style="text-align:left;">
-    <div><strong>Made by Sachin</strong> | Creator of this page</div>
-    <div class="socials">
-      <a href="https://www.instagram.com/sachin_11_13" target="_blank">Instagram</a>
-    </div>
   </div>
 </div>
 
@@ -176,6 +240,21 @@
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer>
+  <div class="wrapper">
+    <img src="sachin.png" alt="Logo">
+    <div class="text">
+      <strong>Made by Sachin</strong>
+      <small>Creator of this page</small>
+    </div>
+    <a href="https://www.instagram.com/sachin_11_13" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      Instagram
+    </a>
+  </div>
+</footer>
 
 <script>
   const num = '918018657290';
@@ -196,6 +275,14 @@
   document.getElementById('imgModal').addEventListener('click',e=>{
     if(e.target.id==='imgModal') closeImg();
   });
+
+  function downloadQR(){
+    const qr = document.getElementById('qrImage');
+    const link = document.createElement('a');
+    link.href = qr.src;
+    link.download = 'RukudaDam_QR.png';
+    link.click();
+  }
 </script>
 
 </body>
